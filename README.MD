@@ -1,5 +1,5 @@
 # Cryptcurrency-Tracker
-Simple telegram bot for tracking cryptocurrency price. Crypto Tracker
+Simple telegram bot for tracking cryptocurrency price. [Crypto Tracker](https://t.me/CryptocurrTrackerBot)
 
 # What this project do
 Fetch information about cryptocurrency price using coinmarketcap API v2, and give this information to users from database.
