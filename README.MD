@@ -8,7 +8,7 @@ Fetch information about cryptocurrency price using coinmarketcap API v2, and giv
 For this bot you need requests, and pyTelegramBotAPI. Cretate db with this table:
 
 Main table with all cryptocurrency
-'''
+```
 CREATE TABLE `crypto_json` (
 	`id`	INTEGER NOT NULL UNIQUE,
 	`name`	TEXT UNIQUE,
@@ -18,25 +18,25 @@ CREATE TABLE `crypto_json` (
 	`percent_change_24h`	REAL,
 	`percent_change_7d`	REAL,
 	PRIMARY KEY(`id`) );
-'''
+```
 Table with cryptocurrency which have users
-'''
+```
 CREATE TABLE `users_crypto` (
 	`user_id`	INTEGER,
 	`crypto_id`	INTEGER,
 	`amount`	REAL NOT NULL DEFAULT 0 );
-'''
+```
 Table with states for FSM
-'''
+```
 CREATE TABLE `users_state` (
 	`user_id`	INTEGER UNIQUE,
 	`state`	TEXT,
 	PRIMARY KEY(`user_id`) );
-'''
+```
 Table with status for notifications
-'''
+```
 CREATE TABLE `users_status` (
 	`user_id`	INTEGER UNIQUE,
 	`status`	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY(`user_id`) );
-'''
+```
