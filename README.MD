@@ -5,7 +5,7 @@ Simple telegram bot for tracking cryptocurrency price. Crypto Tracker
 Fetch information about cryptocurrency price using coinmarketcap API v2, and give this information to users from database.
 
 # How to install
-For this bot you need requests, and pyTelegramBotAPI. Cretate db with this table:
+For this bot you need requests, and pyTelegramBotAPI. Change line with token and db in config.py. Cretate db with this table:
 
 Main table with all cryptocurrency
 ```
