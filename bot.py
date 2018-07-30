@@ -50,6 +50,8 @@ def start_message(message):
         keyboard = types.InlineKeyboardMarkup()
         callback1 = types.InlineKeyboardButton(text='Добавить', callback_data='Add')
         callback2 = types.InlineKeyboardButton(text='Удалить', callback_data='Delete')
+        callback3 = types.InlineKeyboardButton(text='Обновить', callback_data='Update')
+        keyboard.add(callback3)
         keyboard.add(callback1, callback2)
         bot.send_message(message.chat.id, 'Криптовалюты которые вы отслеживаете:\n' +
                          show_crypto(result), reply_markup=keyboard)
@@ -131,10 +133,31 @@ def callback_inline(call):
     keyboard = types.InlineKeyboardMarkup()
     callback1 = types.InlineKeyboardButton(text='Добавить', callback_data='Add')
     callback2 = types.InlineKeyboardButton(text='Удалить', callback_data='Delete')
+    callback3 = types.InlineKeyboardButton(text='Обновить', callback_data='Update')
     if result is False:
         keyboard.add(callback1)
         bot.send_message(call.message.chat.id, 'Вы не отслеживаете ни одной криптовалюты', reply_markup=keyboard)
     else:
+        keyboard.add(callback3)
+        keyboard.add(callback1, callback2)
+        bot.send_message(call.message.chat.id, 'Криптовалюты которые вы отслеживаете:\n' +
+                         show_crypto(result), reply_markup=keyboard)
+    dbworker.set_state(call.message.chat.id, config.States.S_CLEAR_STATE.value)
+
+
+@bot.callback_query_handler(func=lambda call: (True and call.data == 'Update'))
+def callback_inline(call):
+    #  Запрашиваем у БД какие криптовалюты есть у пользователя, потом по этим id делаем join, поулчаем данные
+    result = dbworker.get_users_crypto(call.message.chat.id)
+    keyboard = types.InlineKeyboardMarkup()
+    callback1 = types.InlineKeyboardButton(text='Добавить', callback_data='Add')
+    callback2 = types.InlineKeyboardButton(text='Удалить', callback_data='Delete')
+    callback3 = types.InlineKeyboardButton(text='Обновить', callback_data='Update')
+    if result is False:
+        keyboard.add(callback1)
+        bot.send_message(call.message.chat.id, 'Вы не отслеживаете ни одной криптовалюты', reply_markup=keyboard)
+    else:
+        keyboard.add(callback3)
         keyboard.add(callback1, callback2)
         bot.send_message(call.message.chat.id, 'Криптовалюты которые вы отслеживаете:\n' +
                          show_crypto(result), reply_markup=keyboard)
