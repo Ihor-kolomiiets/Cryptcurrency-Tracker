@@ -1,5 +1,6 @@
 import time
 import threading
+import logging
 import telebot
 import config
 import dbworker
@@ -177,6 +178,8 @@ def callback_inline(call):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='errors.log', filemode='a', level=logging.INFO)
+    log = logging.getLogger('Exception')
     t = threading.Thread(target=parser_api.update)
     t2 = threading.Thread(target=dispatch, args=(86400,))
     t.daemon = True
@@ -187,6 +190,6 @@ if __name__ == '__main__':
         try:
             bot.polling()
         except Exception as e:
-            print(e)
+            log.exception(e)
             time.sleep(5)
             continue
