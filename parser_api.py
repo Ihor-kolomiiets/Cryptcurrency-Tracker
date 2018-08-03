@@ -4,7 +4,7 @@ import requests
 import config
 
 
-def update(interval=300):  # update db every 5 min
+def update(interval=600):  # update db every 10 min
     while True:
         listing_url = 'https://api.coinmarketcap.com/v2/listings/'
         response = requests.get(listing_url)
